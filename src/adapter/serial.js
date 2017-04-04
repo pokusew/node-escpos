@@ -9,8 +9,8 @@ const SerialPort    = require('serialport');
  * @param {[type]} options
  */
 function Serial(port, options){
-  var self = this;
-  options = options || { 
+  const self = this;
+  options = options || {
     baudrate: 9600,
     autoOpen: false
   };
@@ -51,7 +51,7 @@ Serial.prototype.write = function(data, callback){
  * @return {[type]} [description]
  */
 Serial.prototype.close = function(callback) {
-  var self = this;
+  const self = this;
   this.device.drain(function(err) {
     self.device.close();
     self.device = null;

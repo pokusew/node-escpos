@@ -1,28 +1,29 @@
-'use strict';
-const escpos = require('../');
+"use strict";
 
-const device  = new escpos.USB();
+import escpos from '../src';
+
+const device = new escpos.USB();
 const printer = new escpos.Printer(device);
 
-escpos.Image.load(__dirname + '/tux.png', function(image){
+escpos.Image.load(__dirname + '/tux.png', function (image) {
 
-  device.open(function(){
+	device.open(function () {
 
-    printer
-    .align('ct')
+		printer
+			.align('ct')
 
-    .image(image, 's8')
-    .image(image, 'd8')
-    .image(image, 's24')
-    .image(image, 'd24')
-    
-    .raster(image)
-    .raster(image, 'dw')
-    .raster(image, 'dh')
-    .raster(image, 'dwdh')
+			.image(image, 's8')
+			//.image(image, 'd8')
+			//.image(image, 's24')
+			//.image(image, 'd24')
 
-    .cut();
-  
-  });
+			//.raster(image)
+			//.raster(image, 'dw')
+			//.raster(image, 'dh')
+			//.raster(image, 'dwdh')
+
+			.cut();
+
+	});
 
 });

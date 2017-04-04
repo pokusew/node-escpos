@@ -23,7 +23,7 @@ util.inherits(Network, EventEmitter);
  * @return
  */
 Network.prototype.open = function(callback){
-  var self = this;
+  const self = this;
   //connect to net printer by socket (port,ip)
   this.device.on("error", (err) => {
     callback && callback(err, self.device);
@@ -37,7 +37,7 @@ Network.prototype.open = function(callback){
 /**
  * write data to printer
  * @param {[type]} data -- byte data
- * @return 
+ * @return
  */
 Network.prototype.write = function(data, callback){
   this.device.write(data, callback);
@@ -57,6 +57,6 @@ Network.prototype.close = function(callback){
   this.emit('disconnect', this.device);
   callback && callback(null, this.device);
   return this;
-}
+};
 
 module.exports = Network;

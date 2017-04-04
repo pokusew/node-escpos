@@ -30,25 +30,31 @@
       "url": "https://github.com/pokusew"
     }
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/pokusew/node-escpos.git"
   },
   "scripts": {
-    "test": "mocha"
+    "build": "babel src --out-dir dist",
+    "test": "cross-env NODE_ENV=test ava test/tests.js"
   },
   "dependencies": {
-    "iconv-lite": "*",
-    "mutable-buffer": "*"
+    "iconv-lite": "^0.4.15",
+    "mutable-buffer": "^2.0.3"
   },
   "devDependencies": {
-    "mocha": "*"
+    "ava": "^0.18.2",
+    "cross-env": "^4.0.0"
   },
   "optionalDependencies": {
-    "get-pixels": "*",
-    "qr-image": "*",
-    "serialport": "*",
-    "usb": "*"
+    "get-pixels": "^3.3.0",
+    "qr-image": "^3.2.0",
+    "serialport": "^4.0.7",
+    "usb": "^1.2.0"
+  },
+  "ava": {
+    "require": "babel-register",
+    "babel": "inherit"
   }
 }
