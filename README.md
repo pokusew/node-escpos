@@ -24,9 +24,7 @@ Otherwise you will get `LIBUSB_ERROR_NOT_SUPPORTED` when attempting to open devi
 
 ## Example
 
-````javascript
-
-````
+see [example here](/examples/index.js)
 
 ## API
 
@@ -125,16 +123,6 @@ Raises `CashDrawerError()``
 ## Thanks
 
 + Part of code from [@taoyuan](https://github.com/taoyuan)
-
-
-## Contributing
-- Fork this repo
-- Clone your repo
-- Install dependencies
-- Checkout a feature branch
-- Feel free to add your features
-- Make sure your features are fully tested
-- Open a pull request, and enjoy <3
 
 
 ## License
