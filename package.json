@@ -1,40 +1,54 @@
 {
   "name": "escpos",
   "version": "2.4.0",
-  "description": "ESC/POS Printer driver for nodejs",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/song940/node-escpos.git"
-  },
+  "description": "ESC/POS Printer driver for Node.js",
   "keywords": [
+    "epson",
     "escpos",
     "printer"
   ],
-  "author": "lsong",
-  "contributors": [
-    "Jose Vera <hola@jose.com.co>",
-    "Sébastien Vidal <Psychopoulet@GitHub.com>"
-  ],
-  "license": "MIT",
+  "homepage": "https://github.com/pokusew/node-escpos#readme",
   "bugs": {
-    "url": "https://github.com/song940/node-escpos/issues"
+    "url": "https://github.com/pokusew/node-escpos/issues"
   },
-  "homepage": "https://github.com/song940/node-escpos#readme",
+  "license": "MIT",
+  "author": {
+    "name": "lsong",
+    "url": "https://github.com/song940"
+  },
+  "contributors": [
+    {
+      "name": "Jose Vera",
+      "url": "https://github.com/jor3l"
+    },
+    {
+      "name": "Sébastien Vidal",
+      "url": "https://github.com/Psychopoulet"
+    },
+    {
+      "name": "Martin Endler",
+      "url": "https://github.com/pokusew"
+    }
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pokusew/node-escpos.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "iconv-lite": "*",
     "mutable-buffer": "*"
   },
-  "optionalDependencies": {
-    "get-pixels": "*",
-    "serialport": "*",
-    "qr-image": "*",
-    "usb": "*"
-  },
   "devDependencies": {
     "mocha": "*"
+  },
+  "optionalDependencies": {
+    "get-pixels": "*",
+    "qr-image": "*",
+    "serialport": "*",
+    "usb": "*"
   }
 }

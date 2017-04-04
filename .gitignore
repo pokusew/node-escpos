@@ -1,6 +1,21 @@
-.DS_*
-node_modules
-*.sublime*
-psd
-thumb
+# node, npm
+node_modules/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+.supported
+
+# NetBeans
+/nbproject/private/
+
+# WebStorm
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+
+dist/
+
 *.log
