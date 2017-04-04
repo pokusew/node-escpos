@@ -1,13 +1,12 @@
 "use strict";
 
-import util from 'util';
 import qr from 'qr-image';
 import iconv from 'iconv-lite';
 import getPixels from 'get-pixels';
 import Buffer from 'mutable-buffer';
 import EventEmitter from 'events';
-import Image from './image';
-import commands from './commands';
+import Image from './Image';
+import _ from './commands';
 
 
 class Printer extends EventEmitter {
@@ -15,8 +14,12 @@ class Printer extends EventEmitter {
 	constructor(adapter) {
 		super();
 
+		console.log('test');
+
 		this.adapter = adapter;
 		this.buffer = new Buffer();
+
+		return this;
 
 	}
 
@@ -55,10 +58,16 @@ class Printer extends EventEmitter {
 	 * @param  {Function} callback
 	 * @return printer instance
 	 */
-	flush(callback) {
-		const buf = this.buffer.flush();
-		this.adapter.write(buf, callback);
-		return this;
+	flush() {
+
+		const data = this.buffer.flush();
+
+		console.log('data', data);
+
+		const res = this.adapter.write(data);
+
+		return res;
+
 	}
 
 	/**
@@ -68,7 +77,9 @@ class Printer extends EventEmitter {
 	 * @return printer instance
 	 */
 	print(content) {
+
 		this.buffer.write(content);
+
 		return this;
 	}
 
@@ -90,6 +101,9 @@ class Printer extends EventEmitter {
 	 * @return printer instance
 	 */
 	text(content, encoding) {
+
+		console.log('juju');
+
 		return this.print(iconv.encode(content + _.EOL, encoding || 'GB18030'));
 	}
 
@@ -99,7 +113,9 @@ class Printer extends EventEmitter {
 	 * @return {[Printer]} printer [description]
 	 */
 	feed(n) {
+
 		this.buffer.write(new Array(n || 1).fill(_.EOL).join(''));
+
 		return this.flush();
 	}
 
@@ -109,10 +125,13 @@ class Printer extends EventEmitter {
 	 * @return printer instance
 	 */
 	control(ctrl) {
+
 		this.buffer.write(_.FEED_CONTROL_SEQUENCES[
 		'CTL_' + ctrl.toUpperCase()
 			]);
+
 		return this;
+
 	}
 
 	/**
@@ -121,10 +140,11 @@ class Printer extends EventEmitter {
 	 * @return printer instance
 	 */
 	align(align) {
-		this.buffer.write(_.TEXT_FORMAT[
-		'TXT_ALIGN_' + align.toUpperCase()
-			]);
+
+		this.buffer.write(_.TEXT_FORMAT['TXT_ALIGN_' + align.toUpperCase()]);
+
 		return this;
+
 	};
 
 	/**
@@ -133,10 +153,15 @@ class Printer extends EventEmitter {
 	 * @return {[Printer]} printer [description]
 	 */
 	font(family) {
+
+		console.log('hej');
+
 		this.buffer.write(_.TEXT_FORMAT[
 		'TXT_FONT_' + family.toUpperCase()
 			]);
+
 		return this;
+
 	}
 
 	/**
@@ -145,6 +170,7 @@ class Printer extends EventEmitter {
 	 * @return printer instance
 	 */
 	style(type) {
+
 		switch (type.toUpperCase()) {
 
 			case 'B':
@@ -212,6 +238,7 @@ class Printer extends EventEmitter {
 				break;
 
 		}
+
 		return this;
 	}
 
@@ -221,7 +248,7 @@ class Printer extends EventEmitter {
 	 * @param  {[String]}  height  [description]
 	 * @return {[Printer]} printer [description]
 	 */
-	size = function (width, height) {
+	size(width, height) {
 
 		if (2 >= width && 2 >= height) {
 
@@ -248,7 +275,7 @@ class Printer extends EventEmitter {
 
 		return this;
 
-	};
+	}
 
 	/**
 	 * [set line spacing]
@@ -271,8 +298,11 @@ class Printer extends EventEmitter {
 	 * @return printer instance
 	 */
 	hardware(hw) {
+
 		this.buffer.write(_.HARDWARE['HW_' + hw]);
+
 		return this.flush();
+
 	}
 
 	/**
@@ -382,6 +412,7 @@ class Printer extends EventEmitter {
 	 * @return {[type]}       [description]
 	 */
 	raster(image, mode) {
+
 		if (!(image instanceof Image))
 			throw new TypeError('Only escpos.Image supported');
 		mode = mode || 'normal';
@@ -405,9 +436,9 @@ class Printer extends EventEmitter {
 	cut(part, feed) {
 
 		this.feed(feed || 3);
-		this.buffer.write(_.PAPER[
-			part ? 'PAPER_PART_CUT' : 'PAPER_FULL_CUT'
-			]);
+
+		this.buffer.write(_.PAPER[part ? 'PAPER_PART_CUT' : 'PAPER_FULL_CUT']);
+
 		return this.flush();
 
 	}
@@ -427,19 +458,7 @@ class Printer extends EventEmitter {
 
 	};
 
-	/**
-	 * [close description]
-	 * @param  {Function} callback [description]
-	 * @return {[type]}            [description]
-	 */
-	close(callback) {
-
-		const self = this;
-		return this.flush(function () {
-			self.adapter.close(callback);
-		});
-
-	}
+	// TODO close
 
 }
 

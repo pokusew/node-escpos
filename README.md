@@ -1,16 +1,20 @@
-# ESCPOS [![npm version](https://badge.fury.io/js/escpos.svg)](https://www.npmjs.com/package/escpos )
+# ESCPOS
 
-ESC/POS Printer driver for node
+[![npm](https://img.shields.io/npm/v/@pokusew/escpos.svg?maxAge=2592000)](https://www.npmjs.com/package/@pokusew/escpos)
+[![escpos channel on discord](https://img.shields.io/badge/discord-join%20chat-61dafb.svg)](https://discord.gg/bg3yazg)
 
-[![NPM](https://nodei.co/npm/escpos.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/escpos )
+ESC/POS Printer driver for Node.js
+
 
 ## Installation
 
-````
-$ npm i escpos
+Using npm
+
+````bash
+npm install @pokusew/escpos --save
 ````
 
-if you use usb as an adapter :
+If you use USBAdapter:
 
 + On Linux, you'll need `libudev` to build libusb.
 + On Ubuntu/Debian: `sudo apt-get install build-essential libudev-dev`.
@@ -21,73 +25,25 @@ Otherwise you will get `LIBUSB_ERROR_NOT_SUPPORTED` when attempting to open devi
 ## Example
 
 ````javascript
-const escpos = require('escpos');
-
-// Select the adapter based on your printer type
-const device  = new escpos.USB();
-// const device  = new escpos.Network('localhost');
-// const device  = new escpos.Serial('/dev/usb/lp0');
-
-const printer = new escpos.Printer(device);
-
-device.open(function(){
-
-  printer
-  .font('a')
-  .align('ct')
-  .style('bu')
-  .size(1, 1)
-  .text('The quick brown fox jumps over the lazy dog')
-  .text('敏捷的棕色狐狸跳过懒狗')
-  .barcode('12345678', 'EAN8')
-  .qrimage('https://github.com/song940/node-escpos', function(err){
-    this.cut();
-    this.close();
-  });
-
-});
-
 
 ````
-----
-## USB Adapter methods
-### open(function calback)
-Claims the current device USB, if the printer is already in use by other process this will fail.
 
-By default, the USB adapter will set the first printer found, if you have multiple printers use `setDevice` and `getDevices` to switch between printers.
+## API
 
-Triggers the callback function when done.
 
-### openAll()
-Claims all the printers connected to the machine, one by one. When done, sets the first printer found as the default device and triggers the callback function.
+### USBAdapter
 
-### getDevices()
-Returns the number (N) of printers connected, if open is called you must open each device in order to use it.
+#### open
 
-The ID of the printer will be the number you want to set from 0 to N-1.
 
-### setDevice(N)
-Sets the index passed as the current device, N must be higher than 0 and lower than `getDevices()`.
+### Printer
 
-This must be called before printing if you want to swtich between multiple printers connected to the same device.
 
-### close(function callback)
-Closes the current device and releases its USB interface.
-
-### closeAll(function callback)
-Similar to `close()` but loops through all the devices connected and closes them all.
-
-----
-
-## Printer methods
-
-Escpos inherits its methods to the printers. the following methods are defined:
-
-### text("text")
+#### text("text")
 
 Prints raw text. Raises TextError exception.
 
-### control("align")
+#### control("align")
 
 Carrier feed and tabs.
 
@@ -100,7 +56,7 @@ align is a string which takes any of the following values:
 + VT for Vertical Tab
 
 
-### align("align")
+#### align("align")
 
 Set text properties.
 
@@ -116,7 +72,7 @@ font type could be A or B. Default: A
 width is a numeric value, 1 is for regular size, and 2 is twice the standard size. Default: 1
 height is a numeric value, 1 is for regular size and 2 is twice the standard size. Default: 1
 
-### barcode("code", "barcode_type", width, height, "position", "font")
+#### barcode("code", "barcode_type", width, height, "position", "font")
 
 Prints a barcode.
 
@@ -151,27 +107,25 @@ Default: A
 
 Raises BarcodeTypeError, BarcodeSizeError, BarcodeCodeError exceptions.
 
-### cut("mode")
+#### cut("mode")
 
 Cut paper.
 
 mode set a full or partial cut. Default: full
 Partial cut is not implemented in all printers.
 
-### cashdraw(pin)
+#### cashdraw(pin)
 
 Sends a pulse to the cash drawer in the specified pin.
 
 pin is a numeric value which defines the pin to be used to send the pulse, it could be 2 or 5.
 Raises `CashDrawerError()``
 
-----
 
 ## Thanks
 
 + Part of code from [@taoyuan](https://github.com/taoyuan)
 
-----
 
 ## Contributing
 - Fork this repo
@@ -182,10 +136,7 @@ Raises `CashDrawerError()``
 - Make sure your features are fully tested
 - Open a pull request, and enjoy <3
 
-----
 
 ## License
 
 [MIT](/LICENSE.md)
-
----

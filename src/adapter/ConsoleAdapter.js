@@ -34,9 +34,11 @@ class ConsoleAdapter {
 	}
 
 	open() {
+
 		return new Promise((resolve, reject) => {
-			return resolve();
+			return resolve(true);
 		});
+
 	}
 
 	write(data) {

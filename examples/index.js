@@ -1,22 +1,22 @@
 "use strict";
 
-import escpos from '../src';
+import { Printer, USBAdapter, ConsoleAdapter } from '../src';
 
-const device = new escpos.USB();
-const printer = new escpos.Printer(device);
+const device = new USBAdapter();
+const printer = new Printer(device);
 
-device.open(function () {
+device
+	.open()
+	.then(() => {
 
-	printer
-		.font('a')
-		.align('ct')
-		.style('bu')
-		.size(1, 1)
-		.text('The quick brown fox jumps over the lazy dog')
-		.text('敏捷的棕色狐狸跳过懒狗')
-		.barcode('12345678', 'EAN8')
-		.qrimage('https://github.com/song940/node-escpos', function (err) {
-			this.cut();
-		});
+		printer
+			.font('a')
+			.align('ct')
+			.style('bu')
+			.size(1, 1)
+			.text('The quick brown fox jumps over the lazy dog')
+			.text('敏捷的棕色狐狸跳过懒狗')
+			.barcode('12345678', 'EAN8')
+			.cut();
 
-});
+	});

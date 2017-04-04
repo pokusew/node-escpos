@@ -1,11 +1,12 @@
 "use strict";
 
-import escpos from '../src';
+import { USBAdapter, Printer, Image } from '../src';
 
-const device = new escpos.USB();
-const printer = new escpos.Printer(device);
 
-escpos.Image.load(__dirname + '/tux.png', function (image) {
+const device = new USBAdapter();
+const printer = new Printer(device);
+
+Image.load(__dirname + '/tux.png', function (image) {
 
 	device.open(function () {
 
