@@ -1,6 +1,6 @@
 {
   "name": "@pokusew/escpos",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "ESC/POS Printer driver for Node.js",
   "keywords": [
     "epson",
